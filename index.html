@@ -631,7 +631,36 @@
                 width: 100%;
                 justify-content: center;
             }
+			
+			 .about-grid {
+				grid-template-columns: 1fr;
+				gap: 1.5rem;
+			}
+			
+			.info-card {
+				padding: 1.5rem;
+				border-radius: 16px;
+
+			}
+			
+			  .info-item {
+				flex-direction: column;
+				gap: 0.25rem;
+			}
+		
+			.info-item strong {
+				min-width: unset;
+				font-size: 0.85rem;
+				color: var(--text-muted);
+			}
+			
+			 .info-card h3 {
+				font-size: 1.25rem;
+			}
+			
         }
+		
+		
 		body.light .code-window {
 			background: #ffffff;
 			border-color: rgba(15, 23, 42, 0.15);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A'laa Gharaibeh - Software Engineer</title>
     <link rel="icon" type="image/png" href="favicon.png">
 
@@ -576,7 +576,13 @@
         }
 
         @media (max-width: 1024px) {
-            .hero-content {
+			
+					.hero {
+        padding-top: 6.5rem; /* space for fixed header */
+        align-items: flex-start;
+    }
+			
+		   .hero-content {
                 grid-template-columns: 1fr;
                 gap: 3rem;
             }
@@ -595,10 +601,16 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
+            
+			.hero {
+				padding-top: 6.5rem; 
+				align-items: flex-start;
+			}
+			
+			.nav-links{
+			display: none;
+			}
+			
             .hero-text h1 {
                 font-size: 2.5rem;
             }

@@ -212,7 +212,21 @@
             gap: 0.5rem;
             cursor: pointer;
             border: none;
+			transition: 
+			transform 0.25s ease,
+			box-shadow 0.25s ease,
+			background 0.25s ease,
+			border-color 0.25s ease;
         }
+			
+		.btn:hover {
+			transform: translateY(-2px);
+		}
+		
+		.btn:active {
+			transform: scale(0.97);
+		}
+
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -222,7 +236,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+			box-shadow: 0 18px 45px rgba(99, 102, 241, 0.45);
         }
 
         .btn-secondary {
@@ -235,6 +249,21 @@
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.2);
         }
+		
+		.btn-secondary {
+			backdrop-filter: blur(10px);
+		}
+		
+		body.light .btn-secondary {
+			background: rgba(15, 23, 42, 0.05);
+			border: 1px solid rgba(15, 23, 42, 0.2);
+			color: #0f172a;
+		}
+		
+		body.light .btn-secondary:hover {
+			background: rgba(15, 23, 42, 0.1);
+			border-color: rgba(15, 23, 42, 0.35);
+		}
 
         /* Hero Visual */
         .hero-visual {
@@ -580,7 +609,7 @@
 					.hero {
         padding-top: 6.5rem; /* space for fixed header */
         align-items: flex-start;
-    }
+		}
 			
 		   .hero-content {
                 grid-template-columns: 1fr;
@@ -741,6 +770,7 @@
 					</p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">View My Work →</a>
+					<a href="resume.pdf" download target="_blank" class="btn btn-secondary">Download CV ⬇️</a>
                     <a href="#about" class="btn btn-secondary">About Me</a>
                 </div>
             </div>

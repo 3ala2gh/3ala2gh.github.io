@@ -98,7 +98,9 @@
 
       <div data-aos="fade-left" data-aos-delay="200">
         <div class="flex justify-center mb-6">
-          <img src="profile.png" alt="A'laa Gharaibeh" class="size-52 object-cover object-[center_40%] rounded-full border-4 border-indigo-400/40 dark:border-indigo-300/35 outline outline-8 outline-indigo-400/15 shadow-2xl hover:scale-105 transition">
+          <a href="profile.png" id="profileImageTrigger" aria-label="Open profile photo">
+            <img src="profile.png" alt="A'laa Gharaibeh" class="size-60 md:size-64 object-cover object-center rounded-full border-4 border-indigo-400/40 dark:border-indigo-300/35 outline outline-8 outline-indigo-400/15 shadow-2xl scale-70 hover:scale-85 transition">
+          </a>
         </div>
         <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/60 p-6 backdrop-blur-xl shadow-2xl">
           <div class="flex gap-2 mb-4">
@@ -117,6 +119,10 @@
       </div>
     </div>
   </section>
+
+  <div id="imageModal" class="fixed inset-0 z-[70] hidden items-center justify-center bg-slate-950/80 p-6">
+    <img src="profile.png" alt="A'laa Gharaibeh full photo" class="max-h-[90vh] max-w-[90vw] rounded-2xl shadow-2xl">
+  </div>
 
   <section id="about" class="max-w-7xl mx-auto px-6 py-20 md:py-28">
     <div class="text-center mb-16" data-aos="fade-up">
@@ -304,6 +310,8 @@
     const html = document.documentElement;
     const themeToggle = document.getElementById('themeToggle');
     const header = document.getElementById('header');
+    const profileImageTrigger = document.getElementById('profileImageTrigger');
+    const imageModal = document.getElementById('imageModal');
 
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
@@ -327,6 +335,26 @@
       } else {
         header.classList.remove('bg-slate-50/85', 'dark:bg-slate-950/80', 'backdrop-blur-xl', 'border-b', 'border-slate-300/70', 'dark:border-white/10', 'py-4');
         header.classList.add('py-6');
+      }
+    });
+
+    profileImageTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      imageModal.classList.remove('hidden');
+      imageModal.classList.add('flex');
+    });
+
+    imageModal.addEventListener('click', (e) => {
+      if (e.target === imageModal) {
+        imageModal.classList.add('hidden');
+        imageModal.classList.remove('flex');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !imageModal.classList.contains('hidden')) {
+        imageModal.classList.add('hidden');
+        imageModal.classList.remove('flex');
       }
     });
 

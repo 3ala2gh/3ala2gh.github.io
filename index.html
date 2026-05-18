@@ -1,1063 +1,341 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A'laa Gharaibeh - Software Engineer</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --accent: #06b6d4;
-            --dark: #0f172a;
-            --dark-light: #1e293b;
-            --text: #f1f5f9;
-            --text-muted: #94a3b8;
-        }
-		
-		/* Light Mode (non-destructive) */
-		body.light {
-			--dark: #f8fafc;
-			--dark-light: #ffffff;
-			--text: #0f172a;        
-			--text-muted: #334155; 
-			--primary: #4f46e5;
-			--secondary: #db2777;
-			--accent: #0891b2;
-		}
-
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--dark);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
-            animation: gradientShift 15s ease infinite;
-            z-index: -1;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 0;
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1rem 0;
-        }
-
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--text);
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 0 2rem;
-        }
-
-        .hero-content {
-            max-width: 1400px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-text h1 {
-            font-size: 5rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .hero-text .gradient-text {
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero-text p {
-            font-size: 1.25rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-            line-height: 1.8;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-        }
-		
-		/* Theme Toggle Button */
-		.theme-toggle {
-			background: rgba(255, 255, 255, 0.05);
-			border: 1px solid rgba(255, 255, 255, 0.15);
-			color: var(--text);
-			padding: 0.5rem 0.75rem;
-			border-radius: 10px;
-			cursor: pointer;
-			font-size: 1.1rem;
-			transition: all 0.3s ease;
-		}
-		
-		.theme-toggle:hover {
-			background: rgba(255, 255, 255, 0.15);
-		}
-		
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            border: none;
-			transition: 
-			transform 0.25s ease,
-			box-shadow 0.25s ease,
-			background 0.25s ease,
-			border-color 0.25s ease;
-        }
-			
-		.btn:hover {
-			transform: translateY(-2px);
-		}
-		
-		.btn:active {
-			transform: scale(0.97);
-		}
-
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-			box-shadow: 0 18px 45px rgba(99, 102, 241, 0.45);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-		
-		.btn-secondary {
-			backdrop-filter: blur(10px);
-		}
-		
-		body.light .btn-secondary {
-			background: rgba(15, 23, 42, 0.05);
-			border: 1px solid rgba(15, 23, 42, 0.2);
-			color: #0f172a;
-		}
-		
-		body.light .btn-secondary:hover {
-			background: rgba(15, 23, 42, 0.1);
-			border-color: rgba(15, 23, 42, 0.35);
-		}
-
-        /* Hero Visual */
-        .hero-visual {
-            position: relative;
-            animation: fadeInRight 1s ease-out 0.4s both;
-        }
-
-        .code-window {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 1.5rem;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .window-header {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .window-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .dot-red { background: #ef4444; }
-        .dot-yellow { background: #eab308; }
-        .dot-green { background: #22c55e; }
-
-        .code-content {
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.8;
-        }
-
-        .code-line {
-            opacity: 0;
-            animation: typeLine 0.5s ease-out forwards;
-        }
-
-        .code-line:nth-child(1) { animation-delay: 1s; color: #a78bfa; }
-        .code-line:nth-child(2) { animation-delay: 1.2s; color: #60a5fa; }
-        .code-line:nth-child(3) { animation-delay: 1.4s; color: #34d399; }
-        .code-line:nth-child(4) { animation-delay: 1.6s; color: #fbbf24; }
-        .code-line:nth-child(5) { animation-delay: 1.8s; color: #f472b6; }
-
-        @keyframes typeLine {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 8rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-label {
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-        }
-
-        .section-description {
-            color: var(--text-muted);
-            font-size: 1.15rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* About Section */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .info-card {
-            background: rgba(30, 41, 59, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2.5rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .info-card h3 {
-            color: var(--primary);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .info-item {
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: start;
-            gap: 1rem;
-        }
-
-        .info-item strong {
-            color: var(--text);
-            min-width: 100px;
-        }
-
-        .info-item a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .info-item a:hover {
-            color: var(--primary);
-            text-decoration: underline;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-card {
-            background: rgba(30, 41, 59, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .skill-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(99, 102, 241, 0.3);
-        }
-
-        .skill-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.5rem;
-            color: var(--text);
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
-
-        .skill-tag {
-            background: rgba(99, 102, 241, 0.1);
-            color: var(--primary);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: rgba(99, 102, 241, 0.2);
-            transform: scale(1.05);
-        }
-		
-		/* Light mode card clarity */
-		body.light .info-card,
-		body.light .skill-card,
-		body.light .project-card,
-		body.light .code-window {
-			background: rgba(255, 255, 255, 0.9);
-			border-color: rgba(15, 23, 42, 0.1);
-			box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-		}
-		
-		body.light header.scrolled {
-			background: rgba(248, 250, 252, 0.9);
-			border-bottom: 1px solid rgba(15, 23, 42, 0.1);
-		}
-		body.light::before {
-			opacity: 0.4;
-		}
-
-
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: rgba(30, 41, 59, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 2.5rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .project-card:hover::before {
-            opacity: 1;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(99, 102, 241, 0.3);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-card > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .project-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        .project-card p {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        .tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .tech-tag {
-            background: rgba(6, 182, 212, 0.1);
-            color: var(--accent);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid rgba(6, 182, 212, 0.2);
-        }
-
-        .project-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .project-link:hover {
-            color: var(--secondary);
-            gap: 0.75rem;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A'laa Gharaibeh - Software Engineer</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              primary: '#6366f1',
+              secondary: '#ec4899',
+              accent: '#06b6d4'
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+          },
+          boxShadow: {
+            glow: '0 18px 45px rgba(99, 102, 241, 0.45)'
+          }
         }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
 
-        @media (max-width: 1024px) {
-			
-					.hero {
-        padding-top: 6.5rem; /* space for fixed header */
-        align-items: flex-start;
-		}
-			
-		   .hero-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+      animation: gradientShift 15s ease infinite;
+      z-index: -1;
+    }
 
-            .hero-text h1 {
-                font-size: 3.5rem;
-            }
+    .dark body::before {
+      opacity: 0.7;
+    }
 
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
+    @keyframes gradientShift {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.1); }
+    }
 
-            .section {
-                padding: 5rem 2rem;
-            }
-        }
+    @keyframes typeLine {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
 
-        @media (max-width: 768px) {
-            
-			.hero {
-				padding-top: 6.5rem; 
-				align-items: flex-start;
-			}
-			
-			.nav-links{
-			display: none;
-			}
-			
-            .hero-text h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-text p {
-                font-size: 1.1rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-			
-			 .about-grid {
-				grid-template-columns: 1fr;
-				gap: 1.5rem;
-			}
-			
-			.info-card {
-				padding: 1.5rem;
-				border-radius: 16px;
-
-			}
-			
-			  .info-item {
-				flex-direction: column;
-				gap: 0.25rem;
-			}
-		
-			.info-item strong {
-				min-width: unset;
-				font-size: 0.85rem;
-				color: var(--text-muted);
-			}
-			
-			 .info-card h3 {
-				font-size: 1.25rem;
-			}
-			
-        }
-		
-		
-		body.light .code-window {
-			background: #ffffff;
-			border-color: rgba(15, 23, 42, 0.15);
-		}
-		
-		body.light .code-content {
-			color: #0f172a;
-		}
-		
-		body.light .code-line {
-			color: #0f172a !important;
-		}
-		
-		body.light .window-dot.dot-red { background: #dc2626; }
-		body.light .window-dot.dot-yellow { background: #ca8a04; }
-		body.light .window-dot.dot-green { background: #16a34a; }
-		
-		.profile-image-wrapper {
-			display: flex;
-			justify-content: center;
-			margin-bottom: 1.5rem;
-		}
-		
-		.profile-image {
-		width: 220px;
-		height: 220px;
-		object-fit: cover;
-		object-position: center 40%;
-		border-radius: 50%;
-		border: 4px solid rgba(99, 102, 241, 0.4);
-		box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
-		background: #fff;
-		}
-
-		
-		.profile-image:hover {
-			transform: scale(1.05);
-			transition: transform 0.3s ease;
-		}
-		.profile-image {
-			outline: 6px solid rgba(99, 102, 241, 0.15);
-			outline-offset: 6px;
-		}
-
-		
-		body.light .profile-image {
-			border-color: rgba(79, 70, 229, 0.35);
-			box-shadow: 0 15px 40px rgba(15, 23, 42, 0.2);
-		}
-
-
-
-    </style>
+    .code-line {
+      opacity: 0;
+      animation: typeLine 0.25s ease-out forwards;
+    }
+  </style>
 </head>
-<body>
-    <header id="header">
-        <nav>
-            <div class="logo">A'laa Gharaibeh</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-            </ul>
-			<button id="themeToggle" class="theme-toggle" title="Toggle theme">🌙</button>
-        </nav>
-    </header>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 overflow-x-hidden leading-relaxed transition-colors duration-300">
+  <header id="header" class="fixed top-0 w-full z-50 py-6 transition-all duration-300">
+    <nav class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div class="text-2xl font-bold tracking-tight bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">A'laa Gharaibeh</div>
+      <ul class="hidden md:flex items-center gap-10 text-sm font-medium text-slate-500 dark:text-slate-300">
+        <li><a href="#home" class="hover:text-slate-900 dark:hover:text-white transition">Home</a></li>
+        <li><a href="#about" class="hover:text-slate-900 dark:hover:text-white transition">About</a></li>
+        <li><a href="#skills" class="hover:text-slate-900 dark:hover:text-white transition">Skills</a></li>
+        <li><a href="#projects" class="hover:text-slate-900 dark:hover:text-white transition">Projects</a></li>
+      </ul>
+      <button id="themeToggle" class="rounded-lg border border-slate-300/80 dark:border-white/20 bg-white/80 dark:bg-white/5 px-3 py-2 text-sm font-semibold backdrop-blur hover:bg-slate-100 dark:hover:bg-white/15 transition" title="Toggle theme">Dark</button>
+    </nav>
+  </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>
-                    Hi, I'm <span class="gradient-text">A'laa</span>
-                </h1>
-					<p>
-					Software Engineer specializing in full-stack development with ASP.NET Core and Angular.
-					Currently working on government projects with the Ministry of Higher Education, contributing to the Unified Admission system.
-					</p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View My Work →</a>
-					<a href="resume.pdf" target="_blank" rel="noopener" class="btn btn-secondary">View Resume 📄</a>
-                    <a href="#about" class="btn btn-secondary">About Me</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-				<div class="profile-image-wrapper">
-					<img src="profile.png" alt="A'laa Gharaibeh" class="profile-image">
-				</div>
-                <div class="code-window">
-                    <div class="window-header">
-                        <div class="window-dot dot-red"></div>
-                        <div class="window-dot dot-yellow"></div>
-                        <div class="window-dot dot-green"></div>
-                    </div>
-                    <div class="code-content">
-                        <div class="code-line">const developer = {</div>
-                        <div class="code-line">  name: "A'laa Gharaibeh",</div>
-                        <div class="code-line">  skills: ["ASP.NET", "Angular"],</div>
-                        <div class="code-line">  passion: "Building great software"</div>
-                        <div class="code-line">};</div>
-                    </div>
-                </div>
-            </div>
+  <section id="home" class="min-h-screen flex items-center justify-center px-6 pt-28 md:pt-24">
+    <div class="max-w-7xl w-full grid lg:grid-cols-2 gap-12 items-center">
+      <div data-aos="fade-up">
+        <h1 class="text-5xl md:text-6xl xl:text-7xl font-extrabold leading-tight mb-6">
+          Hi, I'm <span class="bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent">A'laa</span>
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mb-8 leading-8">
+          Software Engineer specialized in full-stack development across both ASP.NET Core with Angular and NestJS with React.
+          Currently working at OpsHeaven Technologies, building scalable products and clean, maintainable systems end to end.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#projects" class="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand-primary to-indigo-700 px-8 py-4 text-white font-semibold shadow-lg hover:shadow-glow hover:-translate-y-0.5 transition">View My Work &rarr;</a>
+          <a href="resume.pdf" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-white/20 bg-slate-100/70 dark:bg-white/5 px-8 py-4 font-semibold backdrop-blur hover:bg-slate-200 dark:hover:bg-white/10 hover:-translate-y-0.5 transition">View Resume</a>
+          <a href="#about" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-white/20 bg-slate-100/70 dark:bg-white/5 px-8 py-4 font-semibold backdrop-blur hover:bg-slate-200 dark:hover:bg-white/10 hover:-translate-y-0.5 transition">About Me</a>
         </div>
-    </section>
+      </div>
 
-    <section id="about" class="section">
-        <div class="section-header">
-            <div class="section-label">About Me</div>
-            <h2 class="section-title">Software Engineer & Problem Solver</h2>
-            <p class="section-description">Recent graduate with a strong foundation in full-stack development, clean architecture, and a passion for creating impactful solutions.</p>
+      <div data-aos="fade-left" data-aos-delay="200">
+        <div class="flex justify-center mb-6">
+          <img src="profile.png" alt="A'laa Gharaibeh" class="size-52 object-cover object-[center_40%] rounded-full border-4 border-indigo-400/40 dark:border-indigo-300/35 outline outline-8 outline-indigo-400/15 shadow-2xl hover:scale-105 transition">
         </div>
-        <div class="about-grid">
-            <div class="info-card">
-                <h3>📬 Contact</h3>
-                <div class="info-item">
-                    <strong>Email:</strong>
-                    <span>3ala2mohammedgh@gmail.com</span>
-                </div>
-                <div class="info-item">
-                    <strong>Phone:</strong>
-                    <span>+962 779230975</span>
-                </div>
-                <div class="info-item">
-                    <strong>GitHub:</strong>
-                    <a href="https://github.com/3ala2gh" target="_blank">github.com/3ala2gh</a>
-                </div>
-                <div class="info-item">
-                    <strong>LinkedIn:</strong>
-                    <a href="https://www.linkedin.com/in/alaa-gharaibeh" target="_blank">linkedin.com/in/alaa-gharaibeh</a>
-                </div>
-            </div>
-            <div class="info-card">
-                <h3>🎓 Education</h3>
-                <div class="info-item">
-                    <strong>Institution:</strong>
-                    <span>Jordan University of Science & Technology</span>
-                </div>
-                <div class="info-item">
-                    <strong>Degree:</strong>
-                    <span>Software Engineering</span>
-                </div>
-                <div class="info-item">
-                    <strong>Period:</strong>
-                    <span>2021-2025</span>
-                </div>
-                <div class="info-item">
-                    <strong>GPA:</strong>
-                    <span>3.42/4 (Very Good)</span>
-                </div>
-            </div>
-            <div class="info-card">
-                <h3>💼 Experience</h3>
-                <div class="info-item">
-                    <strong>Company:</strong>
-                    <span>Robotna</span>
-                </div>
-                <div class="info-item">
-                    <strong>Role:</strong>
-                    <span>Trainee (2025)</span>
-                </div>
-                <div class="info-item">
-                    <strong>Focus:</strong>
-                    <span>Ai Automation / Agents Using N8N Tool</span>
-                </div>
-                <div class="info-item">
-                    <strong>Achievement:</strong>
-                    <span>Top performer in task delivery and efficiency</span>
-                </div>
-            </div>
-            <div class="info-card">
-                <h3>🚀 Highlights</h3>
-                <div class="info-item">
-                    <span>✨ Strong backend & frontend expertise</span>
-                </div>
-                <div class="info-item">
-                    <span>🏗️ Clean architecture advocate</span>
-                </div>
-                <div class="info-item">
-                    <span>🧩 100+ coding problems solved</span>
-                </div>
-                <div class="info-item">
-                    <span>🤝 Collaborative team player</span>
-                </div>
-            </div>
+        <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/60 p-6 backdrop-blur-xl shadow-2xl">
+          <div class="flex gap-2 mb-4">
+            <div class="size-3 rounded-full bg-red-500"></div>
+            <div class="size-3 rounded-full bg-yellow-500"></div>
+            <div class="size-3 rounded-full bg-green-500"></div>
+          </div>
+          <div class="font-mono text-sm leading-8">
+            <div class="code-line text-violet-400" style="animation-delay: 0.55s;">const developer = {</div>
+            <div class="code-line text-sky-400" style="animation-delay: 0.7s;">  name: "A'laa Gharaibeh",</div>
+            <div class="code-line text-emerald-400" style="animation-delay: 0.85s;">  skills: ["ASP.NET", "Angular", "React", "NestJS", "PostgreSQL"],</div>
+            <div class="code-line text-amber-400" style="animation-delay: 1s;">  passion: "Building great software"</div>
+            <div class="code-line text-pink-400" style="animation-delay: 1.15s;">};</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="skills" class="section">
-        <div class="section-header">
-            <div class="section-label">Expertise</div>
-            <h2 class="section-title">Skills & Technologies</h2>
+  <section id="about" class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <div class="uppercase tracking-[0.2em] text-sm font-semibold text-brand-primary mb-2">About Me</div>
+      <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Software Engineer & Problem Solver</h2>
+      <p class="max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-300">full-stack development, clean architecture, and a passion for creating impactful solutions.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl" data-aos="fade-right">
+        <h3 class="text-2xl font-semibold text-brand-primary mb-6">Contact</h3>
+        <div class="space-y-4">
+          <div class="flex flex-col sm:flex-row sm:gap-4"><strong class="min-w-24">Email:</strong><span>3ala2mohammedgh@gmail.com</span></div>
+          <div class="flex flex-col sm:flex-row sm:gap-4"><strong class="min-w-24">Phone:</strong><span>+962 779230975</span></div>
+          <div class="flex flex-col sm:flex-row sm:gap-4"><strong class="min-w-24">GitHub:</strong><a href="https://github.com/3ala2gh" target="_blank" class="text-cyan-600 dark:text-cyan-400 hover:text-brand-primary underline">github.com/3ala2gh</a></div>
+          <div class="flex flex-col sm:flex-row sm:gap-4"><strong class="min-w-24">LinkedIn:</strong><a href="https://www.linkedin.com/in/alaa-gharaibeh" target="_blank" class="text-cyan-600 dark:text-cyan-400 hover:text-brand-primary underline">linkedin.com/in/alaa-gharaibeh</a></div>
         </div>
-        <div class="skills-grid">
-            <div class="skill-card">
-                <h3>Backend Development</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">ASP.NET Core</span>
-                    <span class="skill-tag">RESTful APIs</span>
-                    <span class="skill-tag">Entity Framework Core</span>
-                    <span class="skill-tag">JWT Authentication</span>
-                    <span class="skill-tag">SQL Server</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <h3>Frontend Development</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Angular</span>
-                    <span class="skill-tag">TypeScript</span>
-                    <span class="skill-tag">Component Architecture</span>
-                    <span class="skill-tag">Reactive Forms</span>
-                    <span class="skill-tag">UI/UX Design</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <h3>Programming Languages</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">C#</span>
-                    <span class="skill-tag">JavaScript</span>
-                    <span class="skill-tag">TypeScript</span>
-                    <span class="skill-tag">C++</span>
-                    <span class="skill-tag">Java</span>
-					<span class="skill-tag">Visual Basic</span>
-					<span class="skill-tag">Python</span>
-                </div>
-            </div>
-            <div class="skill-card">
-                <h3>Tools & Technologies</h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Git & GitHub</span>
-                    <span class="skill-tag">Cloudinary</span>
-                    <span class="skill-tag">Unity</span>
-                    <span class="skill-tag">Mendix</span>
-                    <span class="skill-tag">OpenAI API</span>
-                    <span class="skill-tag">Supabase</span>
-                    <span class="skill-tag">Ai Automation</span>
-                    <span class="skill-tag">N8N</span>
-                    <span class="skill-tag">Prompt Engineering</span>
-                </div>
-            </div>
+      </div>
+
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl" data-aos="fade-left" data-aos-delay="100">
+        <h3 class="text-2xl font-semibold text-brand-primary mb-6">Education</h3>
+        <div class="space-y-4">
+          <div class="flex flex-col sm:flex-row sm:gap-4"><strong class="min-w-24">Institution:</strong><span>Jordan University of Science & Technology</span></div>
+          <div class="flex flex-col sm:flex-row sm:gap-4"><strong class="min-w-24">Degree:</strong><span>Software Engineering</span></div>
+          <div class="flex flex-col sm:flex-row sm:gap-4"><strong class="min-w-24">Period:</strong><span>2021-2025</span></div>
+          <div class="flex flex-col sm:flex-row sm:gap-4"><strong class="min-w-24">GPA:</strong><span>3.42/4 (Very Good)</span></div>
         </div>
-    </section>
+      </div>
 
-    <section id="projects" class="section">
-        <div class="section-header">
-            <div class="section-label">Portfolio</div>
-            <h2 class="section-title">Featured Projects</h2>
-            <p class="section-description">A collection of my recent work showcasing full-stack development, API integration, and modern web technologies.</p>
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl" data-aos="fade-right" data-aos-delay="200">
+        <h3 class="text-2xl font-semibold text-brand-primary mb-6">Experience</h3>
+        <dl class="space-y-5">
+          <div class="grid gap-1 sm:grid-cols-[9rem_1fr] sm:gap-x-4">
+            <dt class="font-semibold">Company:</dt>
+            <dd>OpsHeaven Technologies</dd>
+          </div>
+          <div class="grid gap-1 sm:grid-cols-[9rem_1fr] sm:gap-x-4">
+            <dt class="font-semibold">Role:</dt>
+            <dd>Full-stack Engineer</dd>
+          </div>
+          <div class="grid gap-1 sm:grid-cols-[9rem_1fr] sm:gap-x-4">
+            <dt class="font-semibold">Focus:</dt>
+            <dd>Building production features with React, NestJS, ASP.NET Core, and Angular</dd>
+          </div>
+          <div class="grid gap-1 sm:grid-cols-[9rem_1fr] sm:gap-x-4">
+            <dt class="font-semibold">Achievement:</dt>
+            <dd>Delivered end-to-end modules from API design to polished UI with strong performance and code quality</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl" data-aos="fade-left" data-aos-delay="300">
+        <h3 class="text-2xl font-semibold text-brand-primary mb-6">Highlights</h3>
+        <ul class="list-disc pl-5 space-y-3 text-slate-700 dark:text-slate-200 marker:text-brand-primary">
+          <li>Strong backend and frontend expertise</li>
+          <li>Clean architecture advocate</li>
+          <li>100+ coding problems solved</li>
+          <li>Collaborative team player</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <div class="uppercase tracking-[0.2em] text-sm font-semibold text-brand-primary mb-2">Expertise</div>
+      <h2 class="text-4xl md:text-5xl font-extrabold">Skills & Technologies</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl" data-aos="fade-up">
+        <h3 class="text-2xl font-semibold mb-6">Backend Development</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">ASP.NET Core</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">NestJS</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">RESTful APIs</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Entity Framework Core</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">JWT Authentication</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">SQL Server</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">PostgreSQL</span>
         </div>
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>WellnessCore</h3>
-                <p>Full-stack fitness platform featuring user dashboards, dynamic chat communities, goal-specific filters, and AI-powered recommendations using OpenAI integration.</p>
-                <div class="tech-tags">
-                    <span class="tech-tag">Angular</span>
-                    <span class="tech-tag">ASP.NET Core</span>
-                    <span class="tech-tag">JWT Auth</span>
-                    <span class="tech-tag">OpenAI API</span>
-                    <span class="tech-tag">Supabase</span>
-                    <span class="tech-tag">Cloudinary</span>
-                </div>
-                <a href="https://github.com/husamfares/WellnessCore" class="project-link" target="_blank">View Project →</a>
-            </div>
+      </div>
 
-            <div class="project-card">
-                <h3>Social Media App</h3>
-                <p>Feature-rich dating application with JWT authentication, role-based access control, real-time messaging, and seamless image upload functionality.</p>
-                <div class="tech-tags">
-                    <span class="tech-tag">ASP.NET Core</span>
-                    <span class="tech-tag">Angular</span>
-                    <span class="tech-tag">JWT</span>
-                    <span class="tech-tag">Real-time</span>
-                    <span class="tech-tag">Image Upload</span>
-                </div>
-                <a href="https://github.com/3ala2gh/DatingApp" class="project-link" target="_blank">View Project →</a>
-            </div>
-
-           <div class="project-card">
-				<h3>AI Automation Agent (n8n)</h3>
-				<p>
-					Built an AI-powered productivity assistant using n8n agents that automates email handling,
-					scheduling, and communication across multiple platforms.
-				</p>
-				<ul style="color: var(--text-muted); padding-left: 1.2rem; margin-bottom: 1.5rem;">
-					<li>Summarizes Gmail messages using AI</li>
-					<li>Sends emails automatically on behalf of the user</li>
-					<li>Creates and manages Google Calendar events</li>
-					<li>Telegram chatbot with text & voice interaction</li>
-					<li>AI responses via text and voice output</li>
-				</ul>
-				<div class="tech-tags">
-					<span class="tech-tag">n8n</span>
-					<span class="tech-tag">AI Agents</span>
-					<span class="tech-tag">Telegram Bot</span>
-					<span class="tech-tag">Gmail API</span>
-					<span class="tech-tag">Google Calendar API</span>
-					<span class="tech-tag">Automation</span>
-				</div>
-			</div>
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="text-2xl font-semibold mb-6">Frontend Development</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Angular</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">React</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">TypeScript</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Component Architecture</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Reactive Forms</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">UI/UX Design</span>
         </div>
-    </section>
+      </div>
 
-    <script>
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl" data-aos="fade-up" data-aos-delay="200">
+        <h3 class="text-2xl font-semibold mb-6">Programming Languages</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">C#</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">JavaScript</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">TypeScript</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">C++</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Java</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Visual Basic</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Python</span>
+        </div>
+      </div>
 
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl" data-aos="fade-up" data-aos-delay="300">
+        <h3 class="text-2xl font-semibold mb-6">Tools & Technologies</h3>
+        <div class="flex flex-wrap gap-3">
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Git & GitHub</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Cloudinary</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Unity</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Mendix</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">OpenAI API</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Supabase</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">AI Automation</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">n8n</span>
+          <span class="px-4 py-2 rounded-lg text-sm font-medium border border-indigo-300/50 bg-indigo-100/70 text-indigo-700 dark:border-indigo-400/30 dark:bg-indigo-500/10 dark:text-indigo-300">Prompt Engineering</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+  <section id="projects" class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+    <div class="text-center mb-16" data-aos="fade-up">
+      <div class="uppercase tracking-[0.2em] text-sm font-semibold text-brand-primary mb-2">Portfolio</div>
+      <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Featured Projects</h2>
+      <p class="max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-300">A collection of my recent work showcasing full-stack development, API integration, and modern web technologies.</p>
+    </div>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
+    <div class="grid lg:grid-cols-3 gap-6">
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl hover:-translate-y-1 hover:shadow-2xl transition" data-aos="fade-right">
+        <h3 class="text-2xl font-semibold mb-4">WellnessCore</h3>
+        <p class="text-slate-600 dark:text-slate-300 mb-6">Full-stack fitness platform featuring user dashboards, dynamic chat communities, goal-specific filters, and AI-powered recommendations using OpenAI integration.</p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Angular</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">ASP.NET Core</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">JWT Auth</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">OpenAI API</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Supabase</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Cloudinary</span>
+        </div>
+        <a href="https://github.com/husamfares/WellnessCore" class="inline-flex items-center gap-2 text-brand-primary hover:text-brand-secondary font-semibold transition" target="_blank">View Project &rarr;</a>
+      </div>
 
-        document.querySelectorAll('.section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(section);
-        });
-		
-		// Theme Toggle 
-		const themeToggle = document.getElementById('themeToggle');
-		const body = document.body;
-		
-		// Load saved theme
-		if (localStorage.getItem('theme') === 'light') {
-			body.classList.add('light');
-			themeToggle.textContent = '🌞';
-		}
-		
-		themeToggle.addEventListener('click', () => {
-			body.classList.toggle('light');
-			const isLight = body.classList.contains('light');
-			themeToggle.textContent = isLight ? '🌞' : '🌙';
-			localStorage.setItem('theme', isLight ? 'light' : 'dark');
-		});
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl hover:-translate-y-1 hover:shadow-2xl transition" data-aos="fade-up" data-aos-delay="100">
+        <h3 class="text-2xl font-semibold mb-4">Social Media App</h3>
+        <p class="text-slate-600 dark:text-slate-300 mb-6">Feature-rich dating application with JWT authentication, role-based access control, real-time messaging, and seamless image upload functionality.</p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">ASP.NET Core</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Angular</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">JWT</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Real-time</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Image Upload</span>
+        </div>
+        <a href="https://github.com/3ala2gh/DatingApp" class="inline-flex items-center gap-2 text-brand-primary hover:text-brand-secondary font-semibold transition" target="_blank">View Project &rarr;</a>
+      </div>
 
-    </script>
+      <div class="rounded-2xl border border-slate-300/70 dark:border-white/10 bg-white/85 dark:bg-slate-800/50 p-8 backdrop-blur-xl shadow-xl hover:-translate-y-1 hover:shadow-2xl transition" data-aos="fade-left" data-aos-delay="200">
+        <h3 class="text-2xl font-semibold mb-4">AI Automation Agent (n8n)</h3>
+        <p class="text-slate-600 dark:text-slate-300 mb-4">Built an AI-powered productivity assistant using n8n agents that automates email handling, scheduling, and communication across multiple platforms.</p>
+        <ul class="list-disc pl-5 text-slate-600 dark:text-slate-300 mb-6 space-y-1">
+          <li>Summarizes Gmail messages using AI</li>
+          <li>Sends emails automatically on behalf of the user</li>
+          <li>Creates and manages Google Calendar events</li>
+          <li>Telegram chatbot with text and voice interaction</li>
+          <li>AI responses via text and voice output</li>
+        </ul>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">n8n</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">AI Agents</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Telegram Bot</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Gmail API</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Google Calendar API</span>
+          <span class="px-3 py-1 rounded-md text-xs font-semibold border border-cyan-300/60 bg-cyan-100/70 text-cyan-700 dark:border-cyan-400/30 dark:bg-cyan-500/10 dark:text-cyan-300">Automation</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    const html = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const header = document.getElementById('header');
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      html.classList.add('dark');
+      themeToggle.textContent = 'Light';
+    } else {
+      themeToggle.textContent = 'Dark';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      const isDark = html.classList.contains('dark');
+      themeToggle.textContent = isDark ? 'Light' : 'Dark';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('bg-slate-50/85', 'dark:bg-slate-950/80', 'backdrop-blur-xl', 'border-b', 'border-slate-300/70', 'dark:border-white/10', 'py-4');
+        header.classList.remove('py-6');
+      } else {
+        header.classList.remove('bg-slate-50/85', 'dark:bg-slate-950/80', 'backdrop-blur-xl', 'border-b', 'border-slate-300/70', 'dark:border-white/10', 'py-4');
+        header.classList.add('py-6');
+      }
+    });
+
+    AOS.init({
+      duration: 550,
+      once: true,
+      easing: 'ease-out-cubic',
+      offset: 80
+    });
+  </script>
 </body>
 </html>
-
-
